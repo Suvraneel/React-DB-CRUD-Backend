@@ -15,12 +15,13 @@ const app = express();
 // const url = 'mongodb://127.0.0.1:27017/simple-db-api'
 // ENV Config
 dotenv.config();
-const PORT = process.env.PORT|| 9001;
+const PORT = process.env.PORT||9001;
 
 app.use(bodyParser.json({ limit: '50mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(cors());
 
+// Fetch All Posts
 app.get('/',(req,res)=>{
   PostEntry.find((error,post) =>{
       if(error) {
@@ -33,6 +34,7 @@ app.get('/',(req,res)=>{
     })
 })
 
+// Create a new post
 app.post('/', (req, res, next) => {
   // initialise new Entry
   var newEntry = new PostEntry();
@@ -52,6 +54,7 @@ app.post('/', (req, res, next) => {
   })
 })
 
+// Update a Post by Id
 app.put('/:id', (req, res) => {
   if (!objId.isValid(req.params.id))
       return res.status(400).send('No resource with given id : ' + req.params.id + ' found')
@@ -69,6 +72,7 @@ app.put('/:id', (req, res) => {
   })
 })
 
+// Delete a post
 app.delete('/:id', (req, res) => {
   if (!objId.isValid(req.params.id))
       return res.status(400).send('No record with given id : ' + req.params.id + ' found')

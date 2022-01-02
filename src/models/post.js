@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const postSchema = new Schema({
     title:  String,
     artist: String,
-    genre:  String,
+    metadata:  String,
     date: { type: Date, default: Date.now },
   });
 
